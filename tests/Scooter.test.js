@@ -1,25 +1,36 @@
 const Scooter = require('../src/Scooter')
 const User = require('../src/User')
 
-//typeof scooter === object
-describe('scooter object', () => {
-  test('does something', () => {
-    // edit this to be a real test!
-    expect(false).toEqual(true);
-  }
-)
-})
+const scooter = new Scooter("Station 1");
 
-//Method tests
-describe('scooter methods', () => {
-  // tests here!
+test("Scooter initial state", () => {
+  expect(scooter.station).toBe("Station 1");
+  expect(scooter.user).toBe(null);
+  expect(scooter.charge).toBe(100);
+  expect(scooter.isBroken).toBe(false);
+});
 
-  //rent method
+test("Rent Scooter", () => {
+  scooter.rent();
+  expect(scooter.station).toBe(null);
+  expect(scooter.user).toBe("A User");
+});
 
-  //dock method
+test("Dock Scooter", () => {
+  scooter.dock("Station 2");
+  expect(scooter.station).toBe("Station 2");
+  expect(scooter.user).toBe(null);
+});
 
-  //requestRepair method
+test("Recharge Scooter", async () => {
+  await scooter.recharge();
+  expect(scooter.charge).toBe(100);
+});
 
-  //charge method
+test("Request Repair", async () => {
+  scooter.requestRepair();
+  expect(scooter.isBroken).toBe(true);
 
-})
+  await new Promise(resolve => setTimeout(resolve, 6000));
+  expect(scooter.isBroken).toBe(false);
+});
