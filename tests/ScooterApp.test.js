@@ -4,14 +4,6 @@ const ScooterApp = require('../src/ScooterApp')
 
 const assert = require("assert");
 
-
-class Scooter {
-  constructor() {
-    this.station = null;
-    this.user = null;
-  }
-}
-
 describe("ScooterApp", () => {
   let app;
 
@@ -80,4 +72,11 @@ describe("ScooterApp", () => {
   });
 
   it("should create a scooter", () => {
-    const scooter}
+    const scooter = app.createScooter("1234");
+    assert.deepEqual(scooter, {
+      id: "1234",
+      station: null,
+      user: null
+    });
+  });
+});
